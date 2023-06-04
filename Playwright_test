@@ -1,0 +1,26 @@
+import { expect, test } from "@playwright/test";
+
+test("Автотест авторизации", async ({ page, baseURL }) => {
+  // Шаг 1: Перейти на главную www.sima-land.ru
+  await page.goto(baseURL);
+
+  // Шаг 2: В хедере нажать на кнопку "Войти"
+  await page.click('text="Войти"');
+
+  // Шаг 3: Ввести логин: qa_test@test.ru
+  await page.fill('input[name="login"]', 'qa_test@test.ru');
+
+  // Шаг 4: Ввести пароль: qa_test
+  await page.fill('input[name="password"]', 'qa_test');
+
+  // Шаг 5: Нажать кнопку "Войти"
+  await page.click('text="Войти"');
+
+  // Шаг 6: Проверить, что авторизация прошла успешно
+  await page.waitForSelector('text="Профиль"');
+  expect(page.url()).toBe("https://www.sima-land.ru/"); 
+  // Проверяем, что URL соответствует ожидаемому
+});
+
+
+
